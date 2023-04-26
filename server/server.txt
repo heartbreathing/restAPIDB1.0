@@ -1,0 +1,68 @@
+const express = require('express');
+// const { Sequelize, DataTypes } = require('sequelize');
+const bodyParser = require("body-parser");
+// const cors = require('cors');
+// require('dotenv').config();
+const { TodoTable } = require('./src/tables');
+
+const app = express();
+const port = 5000;
+// app.use(cors());
+app.use(express.json());
+
+
+
+// const sequelize = new Sequelize(
+//   process.env.DB_NAME,
+//   process.env.DB_USER,
+//   process.env.DB_PASSWORD,
+//   {
+//     host: process.env.DB_HOST,
+//     dialect: 'postgres',
+//   });
+
+// const TodoTable = sequelize.define('Todo', {
+
+//   title: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   completed: {
+//     type: DataTypes.BOOLEAN,
+//     allowNull: false,
+//     defaultValue: false,
+//   },
+// });
+
+app.get('/todos', async (req, res) => {
+  const todos = await Todo.findAll();
+  res.json(todos);
+  res.send(todos);
+});
+
+app.post('/todos', async (req, res) => {
+  const todo = await Todo.create(req.body);
+  res.json(todo);
+});
+
+app.patch('/todos/:id', async (req, res) => {
+  const todo = await Todo.findByPk(req.params.id);
+  if (!todo) return res.sendStatus(404);
+  todo.completed = req.body.completed;
+  await todo.save();
+  res.json(todo);
+});
+
+app.delete('/todos/:id', async (req, res) => {
+  const todo = await Todo.findByPk(req.params.id);
+  if (!todo) return res.sendStatus(404);
+  await todo.destroy();
+  res.sendStatus(204);
+});
+
+// sequelize.sync().then(() => {
+//   app.listen(process.env.PORT, () => {
+//     console.log(`Server is listening on port ${process.env.PORT}`);
+//   });
+// });
+app.listen(port);

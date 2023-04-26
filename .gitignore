@@ -1,0 +1,38 @@
+# Dependency directories
+/node_modules
+/client/node_modules
+/server/node_modules
+
+# Environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build artifacts
+/client/build
+/server/build
+
+# Coverage output
+/coverage
+
+# Debugging files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Visual Studio Code files
+.vscode/
+
+# macOS files
+.DS_Store
+
+# SQLite database files
+*.sqlite
+
+# Log files
+*.log
+
+
+# Ignore .env file
+.env
