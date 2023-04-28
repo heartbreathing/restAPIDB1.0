@@ -7,7 +7,7 @@ const TodoList = () => {
   const [newTodo, setNewTodo] = useState('');
 
   const fetchTodos = async () => {
-    const res = await axios.get('http://localhost:3000/todos');
+    const res = await axios.get('http://localhost:5000/todos');
     setTodos(res.data);
   };
 
@@ -21,13 +21,13 @@ const TodoList = () => {
 
   const handleAddTodo = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:3000/todos', { title: newTodo });
+    await axios.post('http://localhost:5000/todos', { title: newTodo });
     setNewTodo('');
     fetchTodos();
   };
 
   const handleDeleteTodo = async (id) => {
-    await axios.delete(`http://localhost:3000/todos/${id}`);
+    await axios.delete(`http://localhost:5000/todos/${id}`);
     fetchTodos();
   };
 
@@ -39,7 +39,7 @@ const TodoList = () => {
       return todo;
     });
     setTodos(updatedTodos);
-    await axios.patch(`http://localhost:3000/todos/${id}`, {
+    await axios.patch(`http://localhost:5000/todos/${id}`, {
       completed: !completed,
     });
   };
